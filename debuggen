@@ -1,0 +1,34 @@
+cat /var/log/startup-script.log
+
+sudo journalctl -u google-startup-scripts.service 
+
+uptime
+
+lscpu
+
+top
+
+sudo -i 
+systemctl -l -t service
+
+ps aux
+
+sudo journalctl -u pentacoders.service
+
+systemctl status pentacoders.service
+
+gcloud compute  ssh dotnet-group-wfqc	 --zone=europe-west1-b
+
+psql -h 10.107.0.3 -U admin -d burgerApp
+\dt 
+cat /etc/environmentvariables.conf
+
+dig AAAA pentacoders.com +short
+dig AAAA www.pentacoders.com +short
+
+curl -6 -I https://pentacoders.com
+curl -6 -I https://www.pentacoders.com
+
+wget -6 --spider https://pentacoders.com
+wget -6 --spider https://www.pentacoders.com
+
