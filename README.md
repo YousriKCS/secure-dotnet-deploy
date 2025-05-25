@@ -64,11 +64,11 @@ Before you begin, make sure you have:
 |---------------------------|------------------------------------------------------------------------------------------------------|
 | `01_config.sh`            | ● Creates GCP project & service account, links billing, and enables all required APIs               |
 | `02_createInstances.sh`   | ● Provisions VPC, subnet, MIG with auto-scaling, Cloud SQL, load balancer, firewall rules, etc.     |
-| `03_deploy.sh`            | ● Installs .NET runtime, clones your repo, configures environment, starts the app as a systemd service |
+| `03_startup.sh`            | ● Installs .NET runtime, clones your repo, configures environment, starts the app as a systemd service |
 | `04_CFUpdate.sh`          | ● Updates Cloudflare DNS A/AAAA records to point at your Load Balancer IP                           |
 | `05_CFProxy.sh`           | ● Enables Cloudflare proxy (WAF + CDN) once your GCP SSL certificate is ACTIVE                      |
 | `06_upgrade.sh`           | ● Performs zero-downtime rolling update and takes a pre-update Cloud SQL backup                      |
-| `07_SQLBackup.sh`         | ● Triggers on-demand dump of your Cloud SQL database for off-site archive                            |
+| `07_SQL-Backup.sh`         | ● Triggers on-demand dump of your Cloud SQL database for off-site archive                            |
 | `08_destroy.sh`           | ● Tears down all provisioned GCP resources in the correct order                                      |
 | `09_destroyProject.sh`    | ● Deletes the entire GCP project for a clean slate                                                   |
 
@@ -89,19 +89,22 @@ Before you begin, make sure you have:
 3. **Run each script in sequence**  
    ```bash
    ./01_config.sh
-   ./02_createInstances.sh
-   ./03_deploy.sh
-   ./04_CFUpdate.sh
-   ./05_CFProxy.sh
+   ./02_createInstances.sh => activates Startup.sh
+   ./03_CFUpdate.sh
+   ./04_CFProxy.sh
    ```
 4. **To update your app**  
    ```bash
-   ./06_upgrade.sh
+   ./05_upgrade.sh
    ```
-5. **To clean up**  
+5. **To Backup your Database**
    ```bash
-   ./08_destroy.sh
-   ./09_destroyProject.sh
+   ./06_SQL-Backup.sh
+   ```
+6. **To clean up**  
+   ```bash
+   ./07_destroy.sh
+   ./08_destroyProject.sh
    ```
 
 ---
@@ -112,11 +115,11 @@ Before you begin, make sure you have:
 .
 ├── 01_config.sh
 ├── 02_createInstances.sh
-├── 03_deploy.sh
+├── 03_startup.sh
 ├── 04_CFUpdate.sh
 ├── 05_CFProxy.sh
 ├── 06_upgrade.sh
-├── 07_SQLBackup.sh
+├── 07_SQL-Backup.sh
 ├── 08_destroy.sh
 ├── 09_destroyProject.sh
 ├── secrets.env.example
